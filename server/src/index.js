@@ -11,6 +11,6 @@ app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-app.use('api/bank', bankAPIRoutes);
+app.use('/api/bank', bankAPIRoutes);
 
 app.listen(port, () => console.log(`The server starts at port: ${port}`));

@@ -27,7 +27,7 @@ const getUserByPassportID = async (req, res) => {
 const addUser = async (req, res) => {
     const newUser = req.body;
     const user = new User(newUser);
-
+    
     try {
         await user.save();
 

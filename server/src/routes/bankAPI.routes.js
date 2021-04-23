@@ -4,9 +4,16 @@ const userController = require('../controllers/user.controller');
 const bankAccountController = require('../controllers/bank_account.controller');
 const transactionController = require('../controllers/transaction.controller');
 
+/* Users Routes: */
+router.get('/users/getUsers', (req, res) => userController.getUsers(req, res))
+.get('/users/getUserByPassportID/:passportID', (req, res) => userController.getUserByPassportID(req, res))
+.post('/users/addUser', (req, res) => userController.addUser(req, res));
+//delete user?
 
-router.get('/getUsers', (req, res) => userController.getUsers(req, res))
-.get('getUserByID/:passportID', (req, res) => userController.getUserByPassportID(req, res))
-.post('/addUser', (req, res) => userController.addUser(req, res));
+/* Accounts Routes: */
+router.get('/accounts/getAllAcounts', (req, res) => bankAccountController.getAllAcounts(req, res))
+.get('/accounts/getUserAccountByPassportID/:passportID', (req, res) => bankAccountController.getAccountBypassportID(req, res))
+.post('/accounts/addUserAccount', (req, res) => bankAccountController.addUserAccount(req, res));
+//delete account?
 
 module.exports = router;

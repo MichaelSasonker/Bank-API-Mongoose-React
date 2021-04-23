@@ -5,7 +5,6 @@ const BankAccount = mongoose.model('BankAccount', {
     passportID: {
         type: String,
         required: true,
-        unique: true,
         trim: true,
         validate(value) {
             if (value.length !== 9 || !validator.isInt(value, { allow_leading_zeroes: false })) {
@@ -19,7 +18,7 @@ const BankAccount = mongoose.model('BankAccount', {
         default: 0,
         trim: true,
         validate(value) {
-            if (!validator.isInt(value, { allow_leading_zeroes: false, gt: 0 })) {
+            if (!validator.isInt(value, { allow_leading_zeroes: false })) {
                 throw new Error('Invalid credit number!');
             }
         }
@@ -39,11 +38,6 @@ const BankAccount = mongoose.model('BankAccount', {
         type: Boolean,
         required: false,
         default: true,
-        validate(value) {
-            if (!validator.isBoolean(value)) {
-                throw new Error('Invalid isActive type!');
-            }
-        }
     }
 })
 
