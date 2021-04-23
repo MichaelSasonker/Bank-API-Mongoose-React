@@ -16,4 +16,8 @@ router.get('/accounts/getAllAcounts', (req, res) => bankAccountController.getAll
 .post('/accounts/addUserAccount', (req, res) => bankAccountController.addUserAccount(req, res));
 //delete account?
 
+router.get('/transactions/getAllTreansactions', (req, res) => transactionController.getAllTransactions(req, res))
+.get('/transactions/getTransactionsByPassportID/:passPortID', (req, res) => transactionController.getTransactionsByPassportID(req, res))
+.post('/transactions/addTransaction', (req, res) => transactionController.addTransaction(req, res))
+
 module.exports = router;

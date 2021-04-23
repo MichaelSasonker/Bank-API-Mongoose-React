@@ -17,7 +17,8 @@ const Transaction = mongoose.model('Transaction', {
     dstPassportID: {
         type: String,
         required: false,
-        default: null,
+        default: '',
+        // default: this.srcPassportID,
         trim: true,
         validate(value) {
             if (value.length !== 9 || !validator.isInt(value, { allow_leading_zeroes: false })) {
@@ -40,7 +41,7 @@ const Transaction = mongoose.model('Transaction', {
         required: true,
         trim: true,
         validate(value) {
-            if (!validator.isInt(value, { allow_leading_zeroes: false, gt: 0 })) {
+            if (!validator.isInt(value, { allow_leading_zeroes: false } && parseInt(value))) {
                 throw new Error('Invalid passport ID!');
             }
         }
