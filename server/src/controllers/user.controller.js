@@ -3,9 +3,9 @@ const User = require('../models/user.model');
 const getUsers = async (req, res) => {
     try {
         const result = await User.find({});
-        res.status(200).send(result);
+        return res.status(200).send(result);
     } catch (err) {
-        res.status(400).send(err);
+        return res.status(400).send(err);
     }
 }
 
@@ -17,9 +17,9 @@ const getUserByPassportID = async (req, res) => {
             return res.status(404).send();
         }
 
-        res.status(200).send(result);
+        return res.status(200).send(result);
     } catch (err) {
-        res.status(400).send(err);
+        return res.status(400).send(err);
     }
 }
 
@@ -30,10 +30,10 @@ const addUser = async (req, res) => {
     try {
         await user.save();
 
-        res.status(201).send(user);
+        return res.status(201).send(user);
     } catch (err) {
 
-        res.status(400).send(err);
+        return res.status(400).send(err);
     }
 }
 

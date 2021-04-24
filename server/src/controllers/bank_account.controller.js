@@ -2,27 +2,15 @@ const User = require('../models/user.model');
 const BankAccount = require('../models/bank_account.model');
 const isValidUserPassportID = require('../utils/is_valid_passport_id');
 
-// const isValidUserPassportID = async (passportID) => {
-
-//     try {
-//         const result = await User.findOne({ passportID });
-//         if (result === null) {
-//             return false;
-//         }
-//         return true;
-//     } catch (err) {
-//         throw new Error('Something wents wrong!');
-//     }
-// }
 
 const getAllAcounts = async (req, res) => {
     try {
         const result = await BankAccount.find({});
 
-        res.status(200).send(result);
+        return res.status(200).send(result);
     } catch (err) {
 
-        res.status(400).send(err);
+        return res.status(400).send(err);
     }
 }
 
@@ -32,10 +20,10 @@ const getAccountBypassportID = async (req, res) => {
     try {
         const result = await BankAccount.find({ passportID });
 
-        res.status(200).send(result);
+        return res.status(200).send(result);
     } catch (err) {
 
-        res.status(400).send(err);
+        return res.status(400).send(err);
     }
 }
 
@@ -47,16 +35,21 @@ const addUserAccount = async (req, res) => {
     
     try {
         if (isValid) {
+            const isValidAccountNumber = await BankAccount.find({ passportID: newAccount.passportID, accountNumber: newAccount.accountNumber });
+            // console.log(isValidAccountNumber);
+            if (isValidAccountNumber.length != 0) {
+                return res.status(400).send();
+            }
             await bankAccount.save();
-            res.status(201).send(bankAccount);
+            return res.status(201).send(bankAccount);
         }
         else {
-            res.status(404).send(err)
+            return res.status(404).send(err)
         }
 
     } catch (err) {
 
-        res.status(400).send(err);
+        return res.status(400).send(err);
     }
 }
 

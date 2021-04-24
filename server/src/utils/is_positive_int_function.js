@@ -2,7 +2,10 @@
 /* function that checks if a number is positive integer */
 const IsPosInt = (num) => {
     num = parseFloat(num);
-
+    if (num === 0) {
+        return true;
+    } 
+    
     if ((isNaN(num)) || (!IsInt(num)) || (num < 0)) {
         return (false);
     }

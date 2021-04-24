@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const validator = require('validator');
+const isPositiveInt = require('../utils/is_positive_int_function');
 
 const OPERATIONS_TYPE = ['depositing', 'update_credit', 'withdraw', 'transferring'];
 
@@ -14,15 +15,35 @@ const Transaction = mongoose.model('Transaction', {
             }
         }
     },
+    srcAccountNumber: {
+        type: Number,
+        default: 1,
+        required: false,
+        validate(value) {
+            if (isPositiveInt(value) === false) {
+                throw new Error('Invalid account number!');
+            }
+        }
+    },
     dstPassportID: {
         type: String,
         required: false,
-        default: '',
+        default: '111111111',
         // default: this.srcPassportID,
         trim: true,
         validate(value) {
             if (value.length !== 9 || !validator.isInt(value, { allow_leading_zeroes: false })) {
                 throw new Error('Invalid passport ID!');
+            }
+        }
+    },
+    dstAccountNumber: {
+        type: Number,
+        default: 1,
+        required: false,
+        validate(value) {
+            if (isPositiveInt(value) === false) {
+                throw new Error('Invalid account number!');
             }
         }
     },
@@ -37,12 +58,12 @@ const Transaction = mongoose.model('Transaction', {
         }
     },
     amount: {
-        type: String,
+        type: Number,
         required: true,
         trim: true,
         validate(value) {
-            if (!validator.isInt(value, { allow_leading_zeroes: false } && parseInt(value))) {
-                throw new Error('Invalid passport ID!');
+            if (!isPositiveInt(value)) {
+                throw new Error('Invalid money amount!');
             }
         }
     },

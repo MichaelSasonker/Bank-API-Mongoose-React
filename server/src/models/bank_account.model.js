@@ -17,8 +17,9 @@ const BankAccount = mongoose.model('BankAccount', {
     },
     accountNumber: {
         type: Number,
-        required: false,
-        default: 1,
+        required: true,
+        // unique: true,
+        // default: 1,
         validate(value) {
             if (isPositiveInt(value) === false) {
                 throw new Error('Invalid account number!');
@@ -26,23 +27,23 @@ const BankAccount = mongoose.model('BankAccount', {
         }
     },
     credit: {
-        type: String,
+        type: Number,
         required: false,
         default: 0,
         trim: true,
         validate(value) {
-            if (!validator.isInt(value, { allow_leading_zeroes: false }) && parseInt(value) >= 0) {
+            if (!isPositiveInt(value)) {
                 throw new Error('Invalid credit number!');
             }
         }
     },
     cash: {
-        type: String,
+        type: Number,
         required: false,
         default: 0,
         trim: true,
         validate(value) {
-            if (!validator.isInt(value, { allow_leading_zeroes: false })) {
+            if (!isPositiveInt(value)) {
                 throw new Error('Invalid credit number!');
             }
         }
