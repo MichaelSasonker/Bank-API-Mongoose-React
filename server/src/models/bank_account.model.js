@@ -7,8 +7,6 @@ const BankAccount = mongoose.model('BankAccount', {
         type: String,
         required: true,
         trim: true,
-        //TODO: more than one account!
-        // unique: true,
         validate(value) {
             if (value.length !== 9 || !validator.isInt(value, { allow_leading_zeroes: false })) {
                 throw new Error('Invalid passport ID!');
@@ -18,8 +16,6 @@ const BankAccount = mongoose.model('BankAccount', {
     accountNumber: {
         type: Number,
         required: true,
-        // unique: true,
-        // default: 1,
         validate(value) {
             if (isPositiveInt(value) === false) {
                 throw new Error('Invalid account number!');

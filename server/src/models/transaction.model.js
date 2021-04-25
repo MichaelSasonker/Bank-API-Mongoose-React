@@ -29,7 +29,6 @@ const Transaction = mongoose.model('Transaction', {
         type: String,
         required: false,
         default: '111111111',
-        // default: this.srcPassportID,
         trim: true,
         validate(value) {
             if (value.length !== 9 || !validator.isInt(value, { allow_leading_zeroes: false })) {
