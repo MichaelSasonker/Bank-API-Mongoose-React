@@ -1,4 +1,3 @@
-const User = require('../models/user.model');
 const BankAccount = require('../models/bank_account.model');
 const isValidUserPassportID = require('../utils/is_valid_passport_id');
 
@@ -36,19 +35,17 @@ const addUserAccount = async (req, res) => {
     try {
         if (isValid) {
             const isValidAccountNumber = await BankAccount.find({ passportID: newAccount.passportID, accountNumber: newAccount.accountNumber });
-            // console.log(isValidAccountNumber);
             if (isValidAccountNumber.length != 0) {
-                return res.status(400).send();
+                return res.status(400).send('Account number already exist!');
             }
             await bankAccount.save();
             return res.status(201).send(bankAccount);
         }
         else {
-            return res.status(404).send(err)
+            return res.status(404).send('Invalid user passport ID!')
         }
 
     } catch (err) {
-
         return res.status(400).send(err);
     }
 }
