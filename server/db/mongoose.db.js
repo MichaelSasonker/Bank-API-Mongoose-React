@@ -1,11 +1,11 @@
 const mongoose = require('mongoose');
-const User = require('../models/user.model');
+// const User = require('../models/user.model');
 
 const password = process.env.MONGO_PASSWORD;
 
 const uri =
 	`mongodb+srv://admin:${password}@bank-api.e79zr.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`;
-mongoose.connect(uri, {
+mongoose.connect(process.env.MONGODB_URI || uri, {
 		useNewUrlParser: true,
 		useUnifiedTopology: true,
 		useFindAndModify: false,
